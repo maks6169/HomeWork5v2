@@ -51,7 +51,6 @@ public class Main {
         }
         System.arraycopy(a1, 0, arr, 0, h);
         System.arraycopy(a2, 0, arr, h, h);
-
         System.out.println(System.currentTimeMillis() - time);
     }
 }
