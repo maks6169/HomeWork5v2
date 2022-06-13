@@ -21,7 +21,6 @@ public class Main {
         for (int i = 0; i < size; i++) {
             arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         }
-        System.currentTimeMillis();
         System.out.println(System.currentTimeMillis() - time);
     }
 
@@ -32,15 +31,17 @@ public class Main {
         System.arraycopy(arr, 0, a1, 0, h);
         System.arraycopy(arr, h, a2, 0, h);
         Thread t1 = new Thread(() -> {
-            for (int i = 0; i < h; i++) {
-                arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+            for (int i = 0; i < a1.length; i++) {
+                a1[i] = (float) (a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
+
         });
         Thread t2 = new Thread(() -> {
-            for (int i = 0; i < h; i++) {
-                arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+            for (int i = 0; i < a2.length; i++) {
+                a2[i] = (float) (a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
         });
+
         t1.start();
         t2.start();
         try {
@@ -51,7 +52,6 @@ public class Main {
         }
         System.arraycopy(a1, 0, arr, 0, h);
         System.arraycopy(a2, 0, arr, h, h);
-
         System.out.println(System.currentTimeMillis() - time);
     }
 }
